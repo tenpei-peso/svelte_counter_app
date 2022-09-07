@@ -2,15 +2,15 @@
 	//これをpostする?
 	let sampleData = [
 		{
-			title: '',
+			title: 'new',
 			counter: 0
 		},
 		{
-			title: '',
+			title: 'new',
 			counter: 0
 		},
 		{
-			title: '',
+			title: 'new',
 			counter: 0
 		},
 	]
@@ -27,7 +27,7 @@
 
 	//counter増やす
 	function add(): void {
-		sampleData = sampleData.concat({ title: '', counter: 0 });
+		sampleData = sampleData.concat({ title: 'new', counter: 0 });
 	}
 	//counter消す
 	function deleteButton(index: number): void {
@@ -57,7 +57,11 @@
 			<!-- プラスマイナスリセットボタン -->
 			<div class="counter-buttons">
 				<button on:click={() => counter++}>+</button>
-				<button on:click={() => counter--}>-</button>
+				{#if counter == 0}
+					<button disabled on:click={() => counter--}>-</button>
+				{:else}
+					<button on:click={() => counter--}>-</button>
+				{/if}
 				<button on:click={() => counter = 0}>0</button>
 				<button on:click={() => deleteButton(index)}>x</button>
 			</div>
@@ -73,6 +77,16 @@
 	<p>
 		countの合計値: {sumCount}
 	</p>
+
+	<!-- タイトル表示 -->
+	<p>タイトルリスト</p>
+	<ul>
+		{#each sampleData as {title}, index (index)}
+			<li style="list-style-type: none;">
+				{title}
+			</li>
+		{/each}
+	</ul>
 </main>
 
 <style>
